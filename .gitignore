@@ -2,7 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+src/__pycache__/
+app_py_pgsql
+.idea
+db_creds
 # C extensions
 *.so
 
