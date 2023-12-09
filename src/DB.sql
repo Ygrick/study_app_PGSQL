@@ -1,5 +1,3 @@
-CREATE DATABASE contacts;
-
 -- Создание таблицы contacts
 CREATE TABLE contacts (
     contact_id SERIAL PRIMARY KEY,
@@ -19,8 +17,8 @@ CREATE TABLE contacts_audit (
 
 -- Создание триггерной функции
 CREATE OR REPLACE FUNCTION contacts_before_change()
-RETURNS TRIGGER AS '
-BEGIN
+RETURNS TRIGGER AS 
+'BEGIN
     IF TG_OP = ''INSERT'' THEN
         INSERT INTO contacts_audit(contact_id, op_date, op_type, mail)
         VALUES (NEW.contact_id, NOW(), ''i'', NEW.mail);
@@ -33,8 +31,7 @@ BEGIN
         RETURN OLD;
     END IF;
     RETURN NEW;
-END;
-' LANGUAGE plpgsql;
+END;' LANGUAGE plpgsql;
 
 -- Создание триггера
 CREATE TRIGGER contacts_before_change_trigger
