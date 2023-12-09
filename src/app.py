@@ -1,15 +1,24 @@
 from fastapi import FastAPI, HTTPException
 import asyncpg
 import uvicorn
-from datetime import datetime
+from datetime import datetime, date
+from pydantic import BaseModel
+from starlette.staticfiles import StaticFiles
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Параметры подключения к базе данных
 DB_HOST = "localhost"  # или адрес вашего сервера БД
 DB_USER = "postgres"  # ваше имя пользователя БД
 DB_PASSWORD = "Zbujhm2001."  # ваш пароль БД
 DB_NAME = "contacts"  # название вашей БД
+
+class Contact(BaseModel):
+    last_name: str
+    first_name: str
+    birthday: date
+    mail: str
 
 async def create_database():
     conn = await asyncpg.connect(
@@ -63,28 +72,26 @@ async def get_contacts_audit():
 
 
 @app.post("/add_contact/")
-async def add_contact(last_name: str, first_name: str, birthday: str, mail: str):
+async def add_contact(contact: Contact):
     conn = await asyncpg.connect(
         host=DB_HOST, user=DB_USER, password=DB_PASSWORD, database=DB_NAME
     )
-    birthday_date = datetime.strptime(birthday, "%Y-%m-%d").date()
     await conn.execute(
         "SELECT add_contact($1, $2, $3, $4)",
-        last_name, first_name, birthday_date, mail
+        contact.last_name, contact.first_name, contact.birthday, contact.mail
     )
     await conn.close()
     return {"status": "Contact added successfully"}
 
 
 @app.put("/update_contact/")
-async def update_contact(last_name: str, first_name: str, birthday: str, mail: str):
+async def update_contact(contact: Contact):
     conn = await asyncpg.connect(
         host=DB_HOST, user=DB_USER, password=DB_PASSWORD, database=DB_NAME
     )
-    birthday_date = datetime.strptime(birthday, "%Y-%m-%d").date()
     await conn.execute(
         "SELECT update_contact($1, $2, $3, $4)",
-        last_name, first_name, birthday_date, mail
+        contact.last_name, contact.first_name, contact.birthday, contact.mail
     )
     await conn.close()
     return {"status": "Contact updated successfully"}

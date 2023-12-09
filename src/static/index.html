@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Контактная информация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="email"], input[type="date"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: calc(100% - 22px);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            background: #fff;
+            list-style: none;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Управление контактами</h1>
+
+    <h2>Добавить контакт</h2>
+    <form id="addContactForm">
+        Фамилия: <input type="text" id="addLastName"><br>
+        Имя: <input type="text" id="addFirstName"><br>
+        День рождения: <input type="date" id="addBirthday"><br>
+        Почта: <input type="email" id="addMail"><br>
+        <button type="submit">Добавить контакт</button>
+    </form>
+
+    <h2>Обновить контакт</h2>
+    <form id="updateContactForm">
+        Фамилия (для обновления): <input type="text" id="updateLastName"><br>
+        Имя: <input type="text" id="updateFirstName"><br>
+        День рождения: <input type="date" id="updateBirthday"><br>
+        Почта: <input type="email" id="updateMail"><br>
+        <button type="submit">Обновить контакт</button>
+    </form>
+
+    <h2>Удалить контакт</h2>
+    <form id="deleteContactForm">
+        Фамилия (для удаления): <input type="text" id="deleteLastName"><br>
+        <button type="submit">Удалить контакт</button>
+    </form>
+
+    <h2>Список контактов</h2>
+    <button onclick="loadContacts()">Загрузить контакты</button>
+    <ul id="contactsList"></ul>
+
+    <h2>Аудит контактов</h2>
+    <button onclick="loadContactsAudit()">Загрузить аудит контактов</button>
+    <ul id="contactsAuditList"></ul>
+    <script src="script.js"></script>
+</body>
+</html>
