@@ -42,13 +42,13 @@ source venv/bin/activate
 ### 4. Установка зависимостей
 
 ```bash
+cd src
 pip install -r requirements.txt
 ```
 
 ### 5. Запуск приложения
 
 ```bash
-cd src
 uvicorn app:app --reload
 ```
 
